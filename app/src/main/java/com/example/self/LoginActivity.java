@@ -91,12 +91,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginEmailPasswordUser(String email, String pwd) {
+        //ensure fields arent empty
         if(!validateForm()) {
             return;
         }
+        // Make the progress bar visible
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.loginProgress);
         progressBar.setVisibility(View.VISIBLE);
 
+        //use the Fire Base sign in method for email and password
         firebaseAuth.signInWithEmailAndPassword(email, pwd)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -122,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 journalApi.setUsername(snapshot.getString("username"));
                                                 journalApi.setUserId(snapshot.getString("userId"));
                                                 // go to ListActivity
-                                                Intent intent = new Intent(LoginActivity.this, PostJournalActivity.class);
+                                                Intent intent = new Intent(LoginActivity.this, JournalListActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(intent);
                                             }

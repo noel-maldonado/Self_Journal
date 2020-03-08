@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.firebase.Timestamp;
@@ -72,6 +73,8 @@ public class PostJournalActivity extends AppCompatActivity {
         initPostbtn();
         initAddPhotoBtn();
 
+        //Storage reference instantiated (needed to connect)
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         // Firebase user Authentication connection (required on onCreate)
         firebaseAuth = FirebaseAuth.getInstance();
@@ -181,7 +184,8 @@ private void initAddPhotoBtn() {
         final ProgressBar postProgress = (ProgressBar) findViewById(R.id.post_progressBar);
         postProgress.setVisibility(View.VISIBLE);
 
-        final StorageReference filepath = storageReference //the path to the where the Image is saved
+        //the path to the where the Image is saved
+        final StorageReference filepath = storageReference
                 .child("journal_images")
                 .child("my_image_" + Timestamp.now().getSeconds());
 
@@ -189,7 +193,7 @@ private void initAddPhotoBtn() {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                        //retrieving image URL
                         filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {

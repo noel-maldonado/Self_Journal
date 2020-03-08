@@ -14,4 +14,6 @@
     <string name="title_post">Title</string>
     <string name="your_thoughts">Your Thoughts</string>
     <string name="save">Save</string>
+    <string name="menu_title">Add Thoughts</string>
+    <string name="no_thoughts_hint">Write a Journal Entry by clicking the \"+\" icon above</string>
 </resources>
